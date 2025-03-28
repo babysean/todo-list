@@ -44,6 +44,17 @@ class TodoList {
     this.items = this.items.filter(todo => todo.id !== id);
   }
 
+  // 할 일의 제목 업데이트하는 메서드
+  updateTodoTitle(id: number, newTitle: string): void {
+    this.items = this.items.map(todo =>
+      todo.id === id ? { ...todo, title: newTitle } : todo
+    );
+  }
+  // 완료 여부에 따라 할 일 목록을 반환하는 메서드
+  filterTodos(completed: boolean): TodoItem[] {
+    return this.items.filter(todo => todo.completed === completed);
+  }
+
   // 현재 할 일 목록을 반환하는 메서드
   getTodos(): TodoItem[] {
     return this.items;
@@ -80,6 +91,16 @@ myTodoList.printTodos();
 myTodoList.toggleTodoById(1);
 console.log("첫 번째 할 일 토글 후:");
 myTodoList.printTodos();
+
+// 두 번째 할 일 제목 업데이트
+myTodoList.updateTodoTitle(2, "코딩 연습하기 - 업데이트");
+console.log("두 번째 할 일 제목 업데이트 후:");
+myTodoList.printTodos();
+
+// 완료된 할 일만 필터링
+const completedTodos = myTodoList.filterTodos(true);
+console.log("완료된 할 일만 필터링 후:");
+console.log(completedTodos);
 
 // 두 번째 할 일 제거
 myTodoList.removeTodoById(2);
